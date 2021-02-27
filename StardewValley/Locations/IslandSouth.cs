@@ -539,6 +539,29 @@ namespace StardewValley.Locations
 			return base.isCollidingPosition(position, viewport, isFarmer, damagesFarmer, glider, character);
 		}
 
+		public override bool isTilePlaceable(Vector2 tile_location, Item item = null)
+		{
+			Point non_tile_position = Utility.Vector2ToPoint((tile_location + new Vector2(0.5f, 0.5f)) * 64f);
+			if (_exitsBlocked && turtle1Spot.Contains(non_tile_position))
+			{
+				return false;
+			}
+			if (!westernTurtleMoved && turtle2Spot.Contains(non_tile_position))
+			{
+				return false;
+			}
+			return base.isTilePlaceable(tile_location, item);
+		}
+
+		public override void MakeMapModifications(bool force = false)
+		{
+			base.MakeMapModifications(force);
+			if (resortRestored.Value)
+			{
+				ApplyResortRestore();
+			}
+		}
+
 		protected override void resetLocalState()
 		{
 			_isFirstVisit = false;
@@ -656,10 +679,6 @@ namespace StardewValley.Locations
 					layerDepth = 0.001f
 				});
 			}
-			if (resortRestored.Value)
-			{
-				ApplyResortRestore();
-			}
 			if (Game1.currentSeason == "winter" && !Game1.IsRainingHere(this) && Game1.isDarkOut())
 			{
 				addMoonlightJellies(50, new Random((int)Game1.stats.DaysPlayed + (int)Game1.uniqueIDForThisGame - 24917), new Microsoft.Xna.Framework.Rectangle(0, 0, 0, 0));
@@ -717,7 +736,7 @@ namespace StardewValley.Locations
 			{
 				return false;
 			}
-			if (npc.Name == "Emily" && Game1.dayOfMonth == 15 && Game1.currentSeason == "fall")
+			if ((npc.Name == "Pam" || npc.Name == "Emily") && Game1.dayOfMonth == 15 && Game1.currentSeason == "fall")
 			{
 				return false;
 			}

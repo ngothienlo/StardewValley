@@ -579,6 +579,7 @@ namespace StardewValley.Menus
 			{
 				myID = 507,
 				upNeighborID = -99998,
+				leftNeighborImmutable = true,
 				leftNeighborID = -99998,
 				rightNeighborID = -99998,
 				downNeighborID = -99998
@@ -599,6 +600,7 @@ namespace StardewValley.Menus
 				myID = 520,
 				upNeighborID = -99998,
 				leftNeighborID = -99998,
+				leftNeighborImmutable = true,
 				rightNeighborID = -99998,
 				downNeighborID = -99998
 			});
@@ -2695,6 +2697,10 @@ namespace StardewValley.Menus
 			{
 				return false;
 			}
+			if (advancedOptionsButton != null && backButton != null && a == advancedOptionsButton && b == backButton)
+			{
+				return false;
+			}
 			if (source == Source.Wizard)
 			{
 				if (a == favThingBoxCC && b.myID >= 522 && b.myID <= 530)
@@ -2719,11 +2725,28 @@ namespace StardewValley.Menus
 			}
 			if (randomButton != null)
 			{
-				if (a == randomButton && b.name != "Direction")
+				switch (direction)
 				{
-					return false;
+				case 3:
+					if (b == randomButton && a.name == "Direction")
+					{
+						return false;
+					}
+					break;
+				default:
+					if (a == randomButton && b.name != "Direction")
+					{
+						return false;
+					}
+					if (b == randomButton && a.name != "Direction")
+					{
+						return false;
+					}
+					break;
+				case 0:
+					break;
 				}
-				if (b == randomButton && a.name != "Direction")
+				if (a.myID == 622 && direction == 1 && (b == nameBoxCC || b == favThingBoxCC || b == farmnameBoxCC))
 				{
 					return false;
 				}

@@ -843,10 +843,7 @@ namespace StardewValley
 					b.Draw(shirtsTexture, position + origin + positionOffset + new Vector2(16f * scale + (float)(featureXOffsetPerFrame[currentFrame] * 4), (float)(56 + featureYOffsetPerFrame[currentFrame] * 4) + (float)(int)heightOffset * scale), shirtSourceRect, overrideColor.Equals(Color.White) ? Color.White : overrideColor, rotation, origin, 4f * scale, SpriteEffects.None, layerDepth + 1.8E-07f);
 					b.Draw(shirtsTexture, position + origin + positionOffset + new Vector2(16f * scale + (float)(featureXOffsetPerFrame[currentFrame] * 4), (float)(56 + featureYOffsetPerFrame[currentFrame] * 4) + (float)(int)heightOffset * scale), dyed_shirt_source_rect5, overrideColor.Equals(Color.White) ? Utility.MakeCompletelyOpaque(who.GetShirtColor()) : overrideColor, rotation, origin, 4f * scale, SpriteEffects.None, layerDepth + 1.8E-07f + dye_layer_offset);
 				}
-				if (hair_style >= 0)
-				{
-					b.Draw(hair_texture, position + origin + positionOffset + new Vector2(featureXOffsetPerFrame[currentFrame] * 4, featureYOffsetPerFrame[currentFrame] * 4 + 4 + ((who.IsMale && hair_style >= 16) ? (-4) : ((!who.IsMale && hair_style < 16) ? 4 : 0))), hairstyleSourceRect, overrideColor.Equals(Color.White) ? ((Color)who.hairstyleColor) : overrideColor, rotation, origin, 4f * scale, SpriteEffects.None, layerDepth + hair_draw_layer);
-				}
+				b.Draw(hair_texture, position + origin + positionOffset + new Vector2(featureXOffsetPerFrame[currentFrame] * 4, featureYOffsetPerFrame[currentFrame] * 4 + 4 + ((who.IsMale && hair_style >= 16) ? (-4) : ((!who.IsMale && hair_style < 16) ? 4 : 0))), hairstyleSourceRect, overrideColor.Equals(Color.White) ? ((Color)who.hairstyleColor) : overrideColor, rotation, origin, 4f * scale, SpriteEffects.None, layerDepth + hair_draw_layer);
 				break;
 			case 1:
 				shirtSourceRect.Offset(0, 8);
@@ -880,10 +877,7 @@ namespace StardewValley
 				{
 					b.Draw(accessoriesTexture, position + origin + positionOffset + rotationAdjustment + new Vector2(featureXOffsetPerFrame[currentFrame] * 4, 4 + featureYOffsetPerFrame[currentFrame] * 4 + (int)heightOffset), accessorySourceRect, (overrideColor.Equals(Color.White) && (int)who.accessory < 6) ? ((Color)who.hairstyleColor) : overrideColor, rotation, origin, 4f * scale + ((rotation != 0f) ? 0f : 0f), SpriteEffects.None, layerDepth + (((int)who.accessory < 8) ? 1.9E-05f : 2.9E-05f));
 				}
-				if (hair_style >= 0)
-				{
-					b.Draw(hair_texture, position + origin + positionOffset + new Vector2(featureXOffsetPerFrame[currentFrame] * 4, featureYOffsetPerFrame[currentFrame] * 4 + ((who.IsMale && (int)who.hair >= 16) ? (-4) : ((!who.IsMale && (int)who.hair < 16) ? 4 : 0))), hairstyleSourceRect, overrideColor.Equals(Color.White) ? ((Color)who.hairstyleColor) : overrideColor, rotation, origin, 4f * scale, SpriteEffects.None, layerDepth + hair_draw_layer);
-				}
+				b.Draw(hair_texture, position + origin + positionOffset + new Vector2(featureXOffsetPerFrame[currentFrame] * 4, featureYOffsetPerFrame[currentFrame] * 4 + ((who.IsMale && (int)who.hair >= 16) ? (-4) : ((!who.IsMale && (int)who.hair < 16) ? 4 : 0))), hairstyleSourceRect, overrideColor.Equals(Color.White) ? ((Color)who.hairstyleColor) : overrideColor, rotation, origin, 4f * scale, SpriteEffects.None, layerDepth + hair_draw_layer);
 				break;
 			case 2:
 				dyed_shirt_source_rect5 = shirtSourceRect;
@@ -897,10 +891,7 @@ namespace StardewValley
 				{
 					b.Draw(accessoriesTexture, position + origin + positionOffset + rotationAdjustment + new Vector2(featureXOffsetPerFrame[currentFrame] * 4, 8 + featureYOffsetPerFrame[currentFrame] * 4 + (int)heightOffset - 4), accessorySourceRect, (overrideColor.Equals(Color.White) && (int)who.accessory < 6) ? ((Color)who.hairstyleColor) : overrideColor, rotation, origin, 4f * scale + ((rotation != 0f) ? 0f : 0f), SpriteEffects.None, layerDepth + (((int)who.accessory < 8) ? 1.9E-05f : 2.9E-05f));
 				}
-				if (hair_style >= 0)
-				{
-					b.Draw(hair_texture, position + origin + positionOffset + new Vector2(featureXOffsetPerFrame[currentFrame] * 4, featureYOffsetPerFrame[currentFrame] * 4 + ((who.IsMale && (int)who.hair >= 16) ? (-4) : ((!who.IsMale && (int)who.hair < 16) ? 4 : 0))), hairstyleSourceRect, overrideColor.Equals(Color.White) ? ((Color)who.hairstyleColor) : overrideColor, rotation, origin, 4f * scale, SpriteEffects.None, layerDepth + hair_draw_layer);
-				}
+				b.Draw(hair_texture, position + origin + positionOffset + new Vector2(featureXOffsetPerFrame[currentFrame] * 4, featureYOffsetPerFrame[currentFrame] * 4 + ((who.IsMale && (int)who.hair >= 16) ? (-4) : ((!who.IsMale && (int)who.hair < 16) ? 4 : 0))), hairstyleSourceRect, overrideColor.Equals(Color.White) ? ((Color)who.hairstyleColor) : overrideColor, rotation, origin, 4f * scale, SpriteEffects.None, layerDepth + hair_draw_layer);
 				break;
 			case 3:
 			{
@@ -944,10 +935,7 @@ namespace StardewValley
 				{
 					b.Draw(accessoriesTexture, position + origin + positionOffset + rotationAdjustment + new Vector2(-featureXOffsetPerFrame[currentFrame] * 4, 4 + featureYOffsetPerFrame[currentFrame] * 4 + (int)heightOffset), accessorySourceRect, (overrideColor.Equals(Color.White) && (int)who.accessory < 6) ? ((Color)who.hairstyleColor) : overrideColor, rotation, origin, 4f * scale + ((rotation != 0f) ? 0f : 0f), SpriteEffects.FlipHorizontally, layerDepth + (((int)who.accessory < 8) ? 1.9E-05f : 2.9E-05f));
 				}
-				if (hair_style >= 0)
-				{
-					b.Draw(hair_texture, position + origin + positionOffset + new Vector2(-featureXOffsetPerFrame[currentFrame] * 4, featureYOffsetPerFrame[currentFrame] * 4 + ((who.IsMale && (int)who.hair >= 16) ? (-4) : ((!who.IsMale && (int)who.hair < 16) ? 4 : 0))), hairstyleSourceRect, overrideColor.Equals(Color.White) ? ((Color)who.hairstyleColor) : overrideColor, rotation, origin, 4f * scale, flip2 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, layerDepth + hair_draw_layer);
-				}
+				b.Draw(hair_texture, position + origin + positionOffset + new Vector2(-featureXOffsetPerFrame[currentFrame] * 4, featureYOffsetPerFrame[currentFrame] * 4 + ((who.IsMale && (int)who.hair >= 16) ? (-4) : ((!who.IsMale && (int)who.hair < 16) ? 4 : 0))), hairstyleSourceRect, overrideColor.Equals(Color.White) ? ((Color)who.hairstyleColor) : overrideColor, rotation, origin, 4f * scale, flip2 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, layerDepth + hair_draw_layer);
 				break;
 			}
 			}
@@ -1000,7 +988,7 @@ namespace StardewValley
 			b.Draw(baseTexture, position + origin + positionOffset, sourceRect, overrideColor, rotation, origin, 4f * scale, animationFrame.flip ? SpriteEffects.FlipHorizontally : SpriteEffects.None, layerDepth);
 			if (!isDrawingForUI && (bool)who.swimming)
 			{
-				if (who.currentEyes != 0 && who.FacingDirection != 0 && (Game1.timeOfDay < 2600 || (who.isInBed.Value && who.timeWentToBed.Value != 0)) && (!who.FarmerSprite.PauseForSingleAnimation || (who.UsingTool && who.CurrentTool is FishingRod)))
+				if (who.currentEyes != 0 && who.FacingDirection != 0 && (Game1.timeOfDay < 2600 || (who.isInBed.Value && who.timeWentToBed.Value != 0)) && ((!who.FarmerSprite.PauseForSingleAnimation && !who.UsingTool) || (who.UsingTool && who.CurrentTool is FishingRod)))
 				{
 					b.Draw(baseTexture, position + origin + positionOffset + new Vector2(featureXOffsetPerFrame[currentFrame] * 4 + 20 + ((who.FacingDirection == 1) ? 12 : ((who.FacingDirection == 3) ? 4 : 0)), featureYOffsetPerFrame[currentFrame] * 4 + 40), new Rectangle(5, 16, (who.FacingDirection == 2) ? 6 : 2, 2), overrideColor, 0f, origin, 4f * scale, SpriteEffects.None, layerDepth + 5E-08f);
 					b.Draw(baseTexture, position + origin + positionOffset + new Vector2(featureXOffsetPerFrame[currentFrame] * 4 + 20 + ((who.FacingDirection == 1) ? 12 : ((who.FacingDirection == 3) ? 4 : 0)), featureYOffsetPerFrame[currentFrame] * 4 + 40), new Rectangle(264 + ((who.FacingDirection == 3) ? 4 : 0), 2 + (who.currentEyes - 1) * 2, (who.FacingDirection == 2) ? 6 : 2, 2), overrideColor, 0f, origin, 4f * scale, SpriteEffects.None, layerDepth + 1.2E-07f);
@@ -1019,7 +1007,7 @@ namespace StardewValley
 			b.Draw(pantsTexture, position + origin + positionOffset, pants_rect, overrideColor.Equals(Color.White) ? Utility.MakeCompletelyOpaque(who.GetPantsColor()) : overrideColor, rotation, origin, 4f * scale, animationFrame.flip ? SpriteEffects.FlipHorizontally : SpriteEffects.None, layerDepth + ((who.FarmerSprite.CurrentAnimationFrame.frame == 5) ? 0.00092f : 9.2E-08f));
 			sourceRect.Offset(288, 0);
 			FishingRod fishing_rod;
-			if (who.currentEyes != 0 && facingDirection != 0 && (Game1.timeOfDay < 2600 || (who.isInBed.Value && who.timeWentToBed.Value != 0)) && (!who.FarmerSprite.PauseForSingleAnimation || (who.UsingTool && who.CurrentTool is FishingRod)) && (!who.UsingTool || (fishing_rod = (who.CurrentTool as FishingRod)) == null || fishing_rod.isFishing))
+			if (who.currentEyes != 0 && facingDirection != 0 && (Game1.timeOfDay < 2600 || (who.isInBed.Value && who.timeWentToBed.Value != 0)) && ((!who.FarmerSprite.PauseForSingleAnimation && !who.UsingTool) || (who.UsingTool && who.CurrentTool is FishingRod)) && (!who.UsingTool || (fishing_rod = (who.CurrentTool as FishingRod)) == null || fishing_rod.isFishing))
 			{
 				int x_adjustment3 = 5;
 				x_adjustment3 = (animationFrame.flip ? (x_adjustment3 - featureXOffsetPerFrame[currentFrame]) : (x_adjustment3 + featureXOffsetPerFrame[currentFrame]));

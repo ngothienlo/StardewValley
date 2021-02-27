@@ -616,9 +616,9 @@ namespace StardewValley.Locations
 			missedRewardsChestVisible.Value = hasUnclaimedRewards;
 		}
 
-		protected override void resetLocalState()
+		public override void MakeMapModifications(bool force = false)
 		{
-			base.resetLocalState();
+			base.MakeMapModifications(force);
 			if (!Game1.MasterPlayer.mailReceived.Contains("JojaMember") && !areAllAreasComplete())
 			{
 				for (int i = 0; i < areasComplete.Count; i++)
@@ -633,11 +633,16 @@ namespace StardewValley.Locations
 					}
 				}
 			}
+			doShowMissedRewardsChest(missedRewardsChestVisible);
+		}
+
+		protected override void resetLocalState()
+		{
+			base.resetLocalState();
 			if (!Game1.eventUp && !areAllAreasComplete())
 			{
 				Game1.changeMusicTrack("communityCenter");
 			}
-			doShowMissedRewardsChest(missedRewardsChestVisible);
 		}
 
 		private int getAreaNumberFromLocation(Vector2 tileLocation)
@@ -795,7 +800,7 @@ namespace StardewValley.Locations
 					{
 						map.GetLayer("Buildings").Tiles[x, y] = new StaticTile(map.GetLayer("Buildings"), map.TileSheets[0], BlendMode.Alpha, refurbishedMap.GetLayer("Buildings").Tiles[x, y].TileIndex);
 						adjustMapLightPropertiesForLamp(refurbishedMap.GetLayer("Buildings").Tiles[x, y].TileIndex, x, y, "Buildings");
-						if (Game1.player.getTileX() == x && Game1.player.getTileY() == y)
+						if (Game1.player.currentLocation == this && Game1.player.getTileX() == x && Game1.player.getTileY() == y)
 						{
 							Game1.player.Position = new Vector2(2080f, 576f);
 						}

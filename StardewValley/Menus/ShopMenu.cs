@@ -792,7 +792,7 @@ namespace StardewValley.Menus
 				int y2 = scrollBar.bounds.Y;
 				scrollBar.bounds.Y = Math.Min(yPositionOnScreen + height - 64 - 12 - scrollBar.bounds.Height, Math.Max(y, yPositionOnScreen + upArrow.bounds.Height + 20));
 				float percentage = (float)(y - scrollBarRunner.Y) / (float)scrollBarRunner.Height;
-				currentItemIndex = Math.Min(forSale.Count - 4, Math.Max(0, (int)((float)forSale.Count * percentage)));
+				currentItemIndex = Math.Min(Math.Max(0, forSale.Count - 4), Math.Max(0, (int)((float)forSale.Count * percentage)));
 				setScrollBarToCurrentIndex();
 				updateSaleButtonNeighbors();
 				if (y2 != scrollBar.bounds.Y)
@@ -1252,7 +1252,7 @@ namespace StardewValley.Menus
 				{
 					heldItem = item.GetSalableInstance();
 					heldItem.Stack = numberToBuy;
-					if (storeContext == "QiGemShop")
+					if (storeContext == "QiGemShop" || storeContext == "StardewFair")
 					{
 						heldItem.Stack *= item.Stack;
 					}

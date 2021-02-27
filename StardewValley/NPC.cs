@@ -847,7 +847,7 @@ namespace StardewValley
 			try
 			{
 				Dictionary<string, string> NPCDispositions = Game1.content.Load<Dictionary<string, string>>("Data\\NPCDispositions");
-				if (NPCDispositions.ContainsKey(name))
+				if (!(this is Child) && NPCDispositions.ContainsKey(name))
 				{
 					string[] dataSplit = NPCDispositions[name].Split('/');
 					string a = dataSplit[0];
@@ -1020,6 +1020,8 @@ namespace StardewValley
 				return Game1.content.LoadString("Strings\\NPCNames:Grandpa");
 			case "Bear":
 				return Game1.content.LoadString("Strings\\NPCNames:Bear");
+			case "Birdie":
+				return Game1.content.LoadString("Strings\\NPCNames:Birdie");
 			default:
 			{
 				Dictionary<string, string> dispositions = Game1.content.Load<Dictionary<string, string>>("Data\\NPCDispositions");
@@ -1617,11 +1619,11 @@ namespace StardewValley
 							specialItem = true
 						};
 						o.questItem.Value = true;
-						who.ActiveObject = null;
+						who.reduceActiveItemByOne();
 						DelayedAction.playSoundAfterDelay("coin", 200);
 						DelayedAction.functionAfterDelay(delegate
 						{
-							who.addItemToInventoryBool(o);
+							who.addItemByMenuIfNecessary(o);
 						}, 200);
 						Game1.player.freezePause = 550;
 						DelayedAction.functionAfterDelay(delegate
@@ -3591,7 +3593,7 @@ namespace StardewValley
 				}
 			}
 			string day_name = Game1.shortDayNameFromDayOfSeason(Game1.dayOfMonth);
-			if (base.Name == "Pierre" && Game1.isLocationAccessible("CommunityCenter") && day_name == "Wed")
+			if (base.Name == "Pierre" && (Game1.isLocationAccessible("CommunityCenter") || Game1.player.HasTownKey) && day_name == "Wed")
 			{
 				day_name = "Sat";
 			}
@@ -4835,7 +4837,7 @@ namespace StardewValley
 				}
 				try
 				{
-					split = Game1.content.Load<Dictionary<string, string>>("Characters\\schedules\\" + base.Name)[newKey2].Split('/');
+					split = getMasterScheduleRawData()[newKey2].Split('/');
 				}
 				catch (Exception)
 				{
@@ -5019,7 +5021,7 @@ namespace StardewValley
 				}
 				if (changeScheduleForLocationAccessibility(ref location, ref xLocation, ref yLocation, ref localFacingDirection))
 				{
-					if (Game1.content.Load<Dictionary<string, string>>("Characters\\schedules\\" + base.Name).ContainsKey("default"))
+					if (getMasterScheduleRawData().ContainsKey("default"))
 					{
 						return parseMasterSchedule(getMasterScheduleEntry("default"));
 					}
@@ -5533,7 +5535,8 @@ namespace StardewValley
 					patio_location.Y += -1f;
 					break;
 				case "Maru":
-					setTilePosition(70, 8);
+					patio_location.X += -1f;
+					patio_location.Y += -1f;
 					break;
 				case "Penny":
 					patio_location.Y += -1f;
@@ -5880,7 +5883,7 @@ namespace StardewValley
 			if (spouse.GetDaysMarried() >= 1 && r.NextDouble() < (double)(1f - (float)Math.Max(1, heartsWithSpouse) / 12f))
 			{
 				Furniture f2 = farmHouse.getRandomFurniture(r);
-				if (f2 != null && f2.isGroundFurniture() && f2.furniture_type.Value != 15)
+				if (f2 != null && f2.isGroundFurniture() && f2.furniture_type.Value != 15 && f2.furniture_type.Value != 12)
 				{
 					Point p2 = new Point((int)f2.tileLocation.X - 1, (int)f2.tileLocation.Y);
 					if (farmHouse.isTileLocationTotallyClearAndPlaceable(p2.X, p2.Y))

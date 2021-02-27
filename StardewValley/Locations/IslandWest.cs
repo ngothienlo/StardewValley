@@ -388,7 +388,7 @@ namespace StardewValley.Locations
 					who.Halt();
 					Game1.globalFadeToBlack(delegate
 					{
-						who.ActiveObject = null;
+						who.reduceActiveItemByOne();
 						startEvent(new Event(Game1.content.LoadString("Strings\\Locations:IslandSecret_Event_BirdieFinished"), -666777));
 					});
 					who.mailReceived.Add("birdieQuestFinished");
@@ -672,6 +672,19 @@ namespace StardewValley.Locations
 			}
 		}
 
+		public override void MakeMapModifications(bool force = false)
+		{
+			base.MakeMapModifications(force);
+			if (farmhouseRestored.Value)
+			{
+				ApplyFarmHouseRestore();
+			}
+			if (farmObelisk.Value)
+			{
+				ApplyFarmObeliskBuild();
+			}
+		}
+
 		protected override void resetLocalState()
 		{
 			base.resetLocalState();
@@ -691,14 +704,6 @@ namespace StardewValley.Locations
 			if (sandDuggy.Value != null)
 			{
 				sandDuggy.Value.ResetForPlayerEntry();
-			}
-			if (farmhouseRestored.Value)
-			{
-				ApplyFarmHouseRestore();
-			}
-			if (farmObelisk.Value)
-			{
-				ApplyFarmObeliskBuild();
 			}
 			NPC i = getCharacterFromName("Birdie");
 			if (i != null)

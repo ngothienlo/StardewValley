@@ -171,32 +171,18 @@ namespace StardewValley.Locations
 			}
 		}
 
-		protected override void resetLocalState()
+		public override void MakeMapModifications(bool force = false)
 		{
-			base.resetLocalState();
-			if (Game1.MasterPlayer.mailReceived.Contains("ccBoilerRoom"))
+			base.MakeMapModifications(force);
+			if (force)
 			{
-				minecartSteam = new TemporaryAnimatedSprite(27, new Vector2(8072f, 656f), Color.White)
-				{
-					totalNumberOfLoops = 999999,
-					interval = 60f,
-					flipped = true
-				};
+				treehouseBuilt = false;
+				bridgeRestored = false;
 			}
 			if (!bridgeRestored && Utility.doesMasterPlayerHaveMailReceivedButNotMailForTomorrow("ccCraftsRoom"))
 			{
 				restoreBridge();
 			}
-			boulderSourceRect = new Microsoft.Xna.Framework.Rectangle(439 + (Game1.currentSeason.Equals("winter") ? 39 : 0), 1385, 39, 48);
-			if (Game1.IsSpring)
-			{
-				raildroadBlocksourceRect = new Microsoft.Xna.Framework.Rectangle(640, 2176, 64, 80);
-			}
-			else
-			{
-				raildroadBlocksourceRect = new Microsoft.Xna.Framework.Rectangle(640, 1453, 64, 80);
-			}
-			addFrog();
 			if (!(Game1.farmEvent is WorldChangeEvent) || (Game1.farmEvent as WorldChangeEvent).whichEvent.Value != 14)
 			{
 				ApplyTreehouseIfNecessary();
@@ -213,6 +199,30 @@ namespace StardewValley.Locations
 				waterTiles[85, 39] = false;
 				waterTiles[85, 40] = false;
 			}
+		}
+
+		protected override void resetLocalState()
+		{
+			base.resetLocalState();
+			if (Game1.MasterPlayer.mailReceived.Contains("ccBoilerRoom"))
+			{
+				minecartSteam = new TemporaryAnimatedSprite(27, new Vector2(8072f, 656f), Color.White)
+				{
+					totalNumberOfLoops = 999999,
+					interval = 60f,
+					flipped = true
+				};
+			}
+			boulderSourceRect = new Microsoft.Xna.Framework.Rectangle(439 + (Game1.currentSeason.Equals("winter") ? 39 : 0), 1385, 39, 48);
+			if (Game1.IsSpring)
+			{
+				raildroadBlocksourceRect = new Microsoft.Xna.Framework.Rectangle(640, 2176, 64, 80);
+			}
+			else
+			{
+				raildroadBlocksourceRect = new Microsoft.Xna.Framework.Rectangle(640, 1453, 64, 80);
+			}
+			addFrog();
 		}
 
 		public override void DayUpdate(int dayOfMonth)
@@ -371,6 +381,20 @@ namespace StardewValley.Locations
 				return true;
 			}
 			return base.isCollidingPosition(position, viewport, isFarmer, damagesFarmer, glider, character);
+		}
+
+		public override bool isTilePlaceable(Vector2 tile_location, Item item = null)
+		{
+			Point non_tile_position = Utility.Vector2ToPoint((tile_location + new Vector2(0.5f, 0.5f)) * 64f);
+			if ((bool)landslide && landSlideRect.Contains(non_tile_position))
+			{
+				return false;
+			}
+			if ((bool)railroadAreaBlocked && railroadBlockRect.Contains(non_tile_position))
+			{
+				return false;
+			}
+			return base.isTilePlaceable(tile_location, item);
 		}
 
 		public override void draw(SpriteBatch spriteBatch)
